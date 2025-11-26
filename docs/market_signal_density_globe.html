@@ -1,18 +1,18 @@
 <!DOCTYPE html>
-<html lang="sv">
+<html lang="en">
 <head>
-        <!-- Google Analytics 4 -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-7W5VKXC62Z"></script>
-        <script>
-                    window.dataLayer = window.dataLayer || [];
-                    function gtag(){dataLayer.push(arguments);}
-                    gtag('js', new Date());
-                    gtag('config', 'G-7W5VKXC62Z');
-                </script>
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7W5VKXC62Z"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-7W5VKXC62Z');
+    </script>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Namaka Market Signal Density Globe</title>
-    <meta name="description" content="Interaktiv glob som visar Namakas signalflöden, intelligens, produkter, partners och kapital." />
+    <meta name="description" content="Interactive globe showing Namaka's signal flows, intelligence, products, partners, and capital." />
     <meta property="og:title" content="Namaka — The Digital Reef: Living Signal Network" />
     <meta property="og:description" content="Experience the global AI × biological minds collaboration space, powering real-time market intelligence." />
     <meta property="og:image" content="https://kristoffersodersten.github.io/namaka/docs/namaka_og_image.png" />
@@ -26,40 +26,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://unpkg.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600&display=swap" rel="stylesheet" />
-    <!-- Lightweight tracking queue so clicks can be replayed once analytics endpoint/GA is wired up -->
-    <script>
-        globalThis.namakaTracking = globalThis.namakaTracking || [];
-        globalThis.namakaTrack = function (eventName, payload = {}) {
-            globalThis.namakaTracking.push({
-                event: eventName,
-                payload,
-                ts: Date.now(),
-                path: globalThis.location ? globalThis.location.pathname : '/',
-                referrer: document.referrer || 'direct'
-            });
-        };
-
-        globalThis.addEventListener('load', () => {
-            namakaTrack('page_view', { page: 'market_signal_density_globe' });
-
-            const trackedEls = document.querySelectorAll('[data-track]');
-            for (const el of trackedEls) {
-                el.addEventListener('click', () => {
-                    namakaTrack(el.dataset.track, {
-                        label: el.dataset.trackLabel || el.textContent.trim()
-                    });
-                }, { passive: true });
-            }
-        });
-    </script>
-    <!-- Replace G-XXXXXXXXXX with the actual GA4 id or swap for Plausible/Simple Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-    <script>
-        globalThis.dataLayer = globalThis.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-XXXXXXXXXX');
-    </script>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><circle cx='32' cy='32' r='30' fill='%23040714'/><path d='M12 34c4 9 13 15 22 15 12 0 21-9 21-21S46 7 34 7 13 16 13 28' stroke='%2322d3ee' stroke-width='4' fill='none'/></svg>" />
     <style>
         :root {
@@ -70,15 +36,6 @@
             --accent-2: #f472b6;
             --border: rgba(255, 255, 255, 0.12);
             --muted: rgba(255, 255, 255, 0.82);
-        }
-
-        .high-contrast {
-            --bg: #000000;
-            --fg: #ffffff;
-            --accent: #ffcc00;
-            --accent-2: #ff5c8d;
-            --border: rgba(255, 255, 255, 0.45);
-            --muted: rgba(255, 255, 255, 0.9);
         }
 
         * { box-sizing: border-box; }
@@ -118,9 +75,11 @@
             color: var(--fg);
             cursor: pointer;
             transition: border-color 0.2s ease, transform 0.15s ease;
+            text-decoration: none;
+            display: inline-block;
         }
         .pill:hover { border-color: rgba(255, 255, 255, 0.35); transform: translateY(-1px); }
-        .pill:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+        .pill:focus { outline: 2px solid var(--accent); outline-offset: 2px; }
 
         main {
             flex: 1;
@@ -151,7 +110,6 @@
             border-radius: 24px;
             padding: 1.5rem;
             background: rgba(11, 15, 25, 0.8);
-            backdrop-filter: blur(18px);
             display: flex;
             flex-direction: column;
             gap: 1.25rem;
@@ -240,7 +198,7 @@
             transition: transform 0.15s ease, border-color 0.2s ease;
         }
         .floating-controls button:hover { transform: translateY(-1px); border-color: rgba(255, 255, 255, 0.35); }
-        .floating-controls button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+        .floating-controls button:focus { outline: 2px solid var(--accent); outline-offset: 2px; }
 
         .modal-backdrop {
             position: fixed;
@@ -306,54 +264,44 @@
     </style>
 </head>
 <body>
-    <a href="#globe" class="pill" style="position:absolute;left:-999px;top:auto;width:1px;height:1px;overflow:hidden;" aria-label="Hoppa till globen">Hoppa till innehåll</a>
     <header>
-        <span class="badge" aria-live="polite">Techstars Showcase</span>
-        <h1 id="title-text">Namaka Market Signal Density Globe</h1>
-        <p id="subtitle-text">
-            Interaktiv karta över hur Namakas datapipelines, intelligenslager och partners flödar över världen.
-            Rotera, zooma och klicka för att se hur varje nod bidrar till ekosystemet och hur signalerna rör sig.
-        </p>
-        <div class="header-actions" aria-label="Globala kontroller">
-            <button class="pill" id="langToggle" aria-label="Byt språk till engelska">Svenska / English</button>
-            <button class="pill" id="contrastToggle" aria-label="Aktivera högkontrastläge">Högkontrast</button>
-            <button class="pill" id="liveToggle" aria-pressed="false">Simulerad live-signal: Av</button>
-            <button class="pill" id="helpToggle" aria-label="Öppna hjälpfönster">Hjälp / ?</button>
-            <a class="pill" data-track="cta_signal_review" data-track-label="header" href="mailto:kristoffer.sodersten@gmail.com?subject=Signal%20Review%20%E2%80%94%20Namaka&body=Hej%20Kristoffer%2C%0A%0AJag%20vill%20g%C3%A4rna%20boka%2020%20min%20f%C3%B6r%20en%20Signal%20Review.%20H%C3%A4r%20%C3%A4r%20lite%20kontekst%3A%0A-%20Fond%2Fbolag%3A%20%5Bangiv%20namn%5D%0A-%20Fokus%3A%20%5Bvertikal%5D%0A-%20Vad%20jag%20vill%20se%3A%20%5Bkorta%20punkter%5D%0A%0ATack!" aria-label="Boka 20 minuter">Boka 20 min signal review</a>
-            <a class="pill" href="../README.md" target="_blank" rel="noopener" aria-label="Ladda ned investor pack">Investor pack</a>
+        <span class="badge">Techstars Showcase</span>
+        <h1>Namaka Market Signal Density Globe</h1>
+        <p>Interactive globe showing how Namaka pipelines, intelligence layers, and partners flow across the world.</p>
+        <div class="header-actions">
+            <button class="pill" id="liveToggle">Simulated live signal: Off</button>
+            <a class="pill" href="mailto:kristoffer.sodersten@gmail.com?subject=Signal%20Review%20%E2%80%94%20Namaka&body=Hi%20Kristoffer%2C%0A%0AI'd%20like%20to%20book%2020%20minutes%20for%20a%20Signal%20Review.%20Here's%20some%20context%3A%0A-%20Fund/Company%3A%20%5Bname%5D%0A-%20Focus%3A%20%5Bvertical%5D%0A-%20What%20I%20want%20to%20see%3A%20%5Bbrief%20points%5D%0A%0AThanks!">Book 20 min signal review</a>
+            <a class="pill" href="../README.md" target="_blank" rel="noopener">Investor pack</a>
         </div>
     </header>
     <main>
         <section class="globe-wrapper">
-            <div id="globe" tabindex="0" aria-label="Interaktiv glob som visar Namakas ekosystem"></div>
-            <div class="floating-controls" aria-label="Snabbval kamera">
-                <button data-camera="stockholm" aria-label="Fokusera Stockholm Lab">Stockholm Lab</button>
-                <button data-camera="asia" aria-label="Fokusera Asien">Asia Partners</button>
-                <button data-camera="us" aria-label="Fokusera USA">US Capital</button>
-                <button data-camera="tour" aria-label="Starta guidad tur">Guided Tour</button>
+            <div id="globe" tabindex="0"></div>
+            <div class="floating-controls">
+                <button data-camera="stockholm">Stockholm Lab</button>
+                <button data-camera="asia">Asia Partners</button>
+                <button data-camera="us">US Capital</button>
+                <button data-camera="tour">Guided Tour</button>
             </div>
             <aside>
                 <div>
-                    <h2 style="margin:0 0 0.4rem;font-size:1.2rem">Navigering</h2>
-                    <p class="microcopy" id="nav-text">
-                        Drag för att rotera. Scrolla eller nyp för att zooma. Klicka på en nod eller båge för detaljer.
-                        Dubbelt klick fokuserar kameran på det objektet.
-                    </p>
+                    <h2 style="margin:0 0 0.4rem;font-size:1.2rem">Navigation</h2>
+                    <p class="microcopy">Drag to rotate. Scroll or pinch to zoom. Click a node or arc for details. Double-click to focus the camera.</p>
                 </div>
                 <div>
-                    <h3 style="margin:0 0 0.4rem;font-size:1rem">Filtrera lager</h3>
-                    <div class="filters" id="layerFilters" role="group"></div>
+                    <h3 style="margin:0 0 0.4rem;font-size:1rem">Filter Layers</h3>
+                    <div class="filters" id="layerFilters"></div>
                 </div>
                 <div>
-                    <h3 style="margin:0 0 0.4rem;font-size:1rem">Legend & signalflöden</h3>
-                    <ul class="legend" id="legendList" role="list"></ul>
+                    <h3 style="margin:0 0 0.4rem;font-size:1rem">Legend & Signal Flows</h3>
+                    <ul class="legend" id="legendList"></ul>
                 </div>
-                <div class="kpi-ribbon" aria-label="Nyckel-KPI:er">
+                <div class="kpi-ribbon">
                     <div class="kpi-row"><span>Coverage</span><strong id="kpiCoverage">82%</strong></div>
                     <div class="kpi-row"><span>Signal Freshness</span><strong id="kpiFreshness">9m</strong></div>
                     <div class="kpi-row"><span>Partner Uptime</span><strong id="kpiUptime">99.4%</strong></div>
                 </div>
-                <div class="trust-box" aria-label="Säkerhet och styrning">
+                <div class="trust-box">
                     <strong>Trust & Governance</strong>
                     <span>PII isolation · Encryption in transit/at rest · Audit logging · SOC2 prep.</span>
                 </div>
@@ -362,13 +310,13 @@
         </section>
     </main>
     <footer>
-        Uppdaterad för Techstars demo · Globe.gl + WebGL · Realtidskategorier kan importeras via API när produktionen körs.
+        Updated for Techstars demo · Globe.gl + WebGL · Realtime categories can be imported via API when production runs.
     </footer>
 
-    <div class="modal-backdrop" id="detailModal" role="dialog" aria-modal="true" aria-labelledby="detailTitle">
+    <div class="modal-backdrop" id="detailModal">
         <div class="modal">
             <div class="status-bar">
-                <span class="status-dot" aria-hidden="true"></span>
+                <span class="status-dot"></span>
                 <span id="detailLayer"></span>
                 <span id="detailImpact"></span>
             </div>
@@ -376,24 +324,7 @@
             <p id="detailDesc"></p>
             <p id="detailKPIs"></p>
             <footer>
-                <button class="pill" id="closeModal">Stäng</button>
-            </footer>
-        </div>
-    </div>
-
-    <div class="modal-backdrop" id="helpModal" role="dialog" aria-modal="true" aria-labelledby="helpTitle">
-        <div class="modal">
-            <h3 id="helpTitle">Välkommen</h3>
-            <p id="helpBody">Rotera, zooma, klicka noder eller bågar. Använd filtren för att dölja lager. Kameraknappen fokuserar på nyckelnoder.</p>
-            <ul class="microcopy">
-                <li>Tryck <kbd>Tab</kbd> för att hoppa mellan kontroller.</li>
-                <li>Prova högkontrastläget vid starkt ljus.</li>
-                <li>Simulerad live-signal jitter visar realtidsförändringar.</li>
-            </ul>
-            <footer>
-                <a class="pill" href="../README.md" target="_blank" rel="noopener">README</a>
-                <a class="pill" href="../docs/master_architecture.md" target="_blank" rel="noopener">Master Architecture</a>
-                <button class="pill" id="closeHelp">Stäng</button>
+                <button class="pill" id="closeModal">Close</button>
             </footer>
         </div>
     </div>
@@ -401,24 +332,24 @@
     <script src="https://unpkg.com/globe.gl@4.6.9/dist/globe.gl.min.js"></script>
     <script>
         const layers = {
-            "Signals": { color: '#F87171', label: 'Signalskikt' },
+            "Signals": { color: '#F87171', label: 'Signals' },
             "Intelligence": { color: '#22D3EE', label: 'AI & Intelligence' },
-            "Product": { color: '#A855F7', label: 'Produkter' },
-            "Partners": { color: '#34D399', label: 'Partners & distribution' },
-            "Capital": { color: '#FBBF24', label: 'Kapital & kunder' }
+            "Product": { color: '#A855F7', label: 'Products' },
+            "Partners": { color: '#34D399', label: 'Partners & Distribution' },
+            "Capital": { color: '#FBBF24', label: 'Capital & Customers' }
         };
 
         const ecosystemNodes = [
-            { name: 'Stockholm Signal Lab', layer: 'Signals', lat: 59.3293, lng: 18.0686, impact: 0.9, description: 'Insamlar nordiska retail- & fintechsignaler i realtid.' },
-            { name: 'Silicon Valley Ventures', layer: 'Capital', lat: 37.3875, lng: -122.0575, impact: 0.7, description: 'VC-partnerskap som matar in behov och hypoteser.' },
-            { name: 'Dakar Community Grid', layer: 'Signals', lat: 14.7167, lng: -17.4677, impact: 0.6, description: 'Mobila dataflöden från frontier markets.' },
-            { name: 'Berlin Intelligence Core', layer: 'Intelligence', lat: 52.52, lng: 13.405, impact: 1, description: 'Transformerstack som normaliserar och väger signalerna.' },
-            { name: 'London Growth Studio', layer: 'Product', lat: 51.5072, lng: -0.1276, impact: 0.8, description: 'Produktteam som översätter insikter till dashboards och API-er.' },
-            { name: 'Lisbon Experience Hub', layer: 'Product', lat: 38.7223, lng: -9.1393, impact: 0.55, description: 'Pilotprogram med Techstarsbolag och designpartners.' },
-            { name: 'Singapore Distribution', layer: 'Partners', lat: 1.3521, lng: 103.8198, impact: 0.65, description: 'Regionala banker och telcos som distribuerar Namakas modeller.' },
-            { name: 'São Paulo Commerce Edge', layer: 'Signals', lat: -23.5558, lng: -46.6396, impact: 0.5, description: 'Merchant-data och karta över informella ekonomier.' },
-            { name: 'Tokyo Enterprise Desk', layer: 'Partners', lat: 35.6762, lng: 139.6503, impact: 0.45, description: 'Joint ventures för globala supply chain-kunder.' },
-            { name: 'New York Capital Network', layer: 'Capital', lat: 40.7128, lng: -74.006, impact: 0.85, description: 'Family offices som säkrar långsiktiga signalsamarbeten.' }
+            { name: 'Stockholm Signal Lab', layer: 'Signals', lat: 59.3293, lng: 18.0686, impact: 0.9, description: 'Collects Nordic retail & fintech signals in real-time.' },
+            { name: 'Silicon Valley Ventures', layer: 'Capital', lat: 37.3875, lng: -122.0575, impact: 0.7, description: 'VC partnerships feeding in needs and hypotheses.' },
+            { name: 'Dakar Community Grid', layer: 'Signals', lat: 14.7167, lng: -17.4677, impact: 0.6, description: 'Mobile data flows from frontier markets.' },
+            { name: 'Berlin Intelligence Core', layer: 'Intelligence', lat: 52.52, lng: 13.405, impact: 1, description: 'Transformer stack normalizing and weighting signals.' },
+            { name: 'London Growth Studio', layer: 'Product', lat: 51.5072, lng: -0.1276, impact: 0.8, description: 'Product team translating insights into dashboards and APIs.' },
+            { name: 'Lisbon Experience Hub', layer: 'Product', lat: 38.7223, lng: -9.1393, impact: 0.55, description: 'Pilot programs with Techstars companies and design partners.' },
+            { name: 'Singapore Distribution', layer: 'Partners', lat: 1.3521, lng: 103.8198, impact: 0.65, description: 'Regional banks and telcos distributing Namaka models.' },
+            { name: 'São Paulo Commerce Edge', layer: 'Signals', lat: -23.5558, lng: -46.6396, impact: 0.5, description: 'Merchant data and map of informal economies.' },
+            { name: 'Tokyo Enterprise Desk', layer: 'Partners', lat: 35.6762, lng: 139.6503, impact: 0.45, description: 'Joint ventures for global supply chain customers.' },
+            { name: 'New York Capital Network', layer: 'Capital', lat: 40.7128, lng: -74.006, impact: 0.85, description: 'Family offices securing long-term signal partnerships.' }
         ];
 
         const signalArcs = [
@@ -454,8 +385,8 @@
             .pointColor(d => layers[d.layer].color)
             .pointLabel(d => `
                 <strong>${d.name}</strong><br/>
-                Lager: ${layers[d.layer].label}<br/>
-                Effekt: ${(d.impact * 100).toFixed(0)}%<br/>
+                Layer: ${layers[d.layer].label}<br/>
+                Impact: ${(d.impact * 100).toFixed(0)}%<br/>
                 ${d.description}
             `)
             .labelsData(ecosystemNodes)
@@ -513,9 +444,8 @@
                         <span style="background:${value.color}"></span>
                         ${value.label}
                     </span>
-                    <span>${count} nav</span>
+                    <span>${count} nodes</span>
                 `;
-                li.setAttribute('tabindex', '0');
                 list.appendChild(li);
             }
         }
@@ -527,7 +457,7 @@
             world.labelsData(filteredPoints);
             world.arcsData(filteredArcs);
             const continents = countContinents(filteredPoints);
-            document.getElementById('metaStats').textContent = `${filteredPoints.length} noder · ${filteredArcs.length} signalbanor · ${continents} kontinenter`;
+            document.getElementById('metaStats').textContent = `${filteredPoints.length} nodes · ${filteredArcs.length} signal paths · ${continents} continents`;
         }
 
         function wireFilters() {
@@ -559,7 +489,7 @@
             document.getElementById('detailTitle').textContent = node.name;
             document.getElementById('detailDesc').textContent = node.description;
             document.getElementById('detailLayer').textContent = layers[node.layer].label;
-            document.getElementById('detailImpact').textContent = `Effect: ${(node.impact * 100).toFixed(0)}%`;
+            document.getElementById('detailImpact').textContent = `Impact: ${(node.impact * 100).toFixed(0)}%`;
             document.getElementById('detailKPIs').textContent = `KPIs: Coverage ${(node.impact * 80 + 20).toFixed(0)} · Stability ${(node.impact * 70 + 25).toFixed(0)} · Velocity ${(node.impact * 60 + 30).toFixed(0)}`;
             modal.style.display = 'flex';
             world.pointOfView({ lat: node.lat, lng: node.lng, altitude: 1.35 }, 900);
@@ -594,65 +524,11 @@
             modal.style.display = 'none';
         }
 
-        // Accessibility: keyboard focus for globe
-        globeElement.addEventListener('keydown', e => {
-            if (e.key === 'Enter') world.pointOfView({ lat: 15, lng: -20, altitude: 2.2 }, 900);
-        });
-
-        // Language toggle (sv/en)
-        const strings = {
-            sv: {
-                title: 'Namaka Market Signal Density Globe',
-                subtitle: 'Interaktiv karta över hur Namakas datapipelines, intelligenslager och partners flödar över världen.',
-                nav: 'Drag för att rotera. Scrolla eller nyp för att zooma. Klicka på en nod eller båge för detaljer. Dubbelt klick fokuserar kameran på det objektet.',
-                liveOn: 'Simulerad live-signal: På',
-                liveOff: 'Simulerad live-signal: Av',
-                helpTitle: 'Välkommen',
-                helpBody: 'Rotera, zooma, klicka noder eller bågar. Använd filtren för att dölja lager. Kameraknappen fokuserar på nyckelnoder.'
-            },
-            en: {
-                title: 'Namaka Market Signal Density Globe',
-                subtitle: 'Interactive globe showing how Namaka pipelines, intelligence layers, and partners flow across the world.',
-                nav: 'Drag to rotate. Scroll or pinch to zoom. Click a node or arc for details. Double-click to focus the camera.',
-                liveOn: 'Simulated live signal: On',
-                liveOff: 'Simulated live signal: Off',
-                helpTitle: 'Welcome',
-                helpBody: 'Rotate, zoom, click nodes or arcs. Use filters to hide layers. Camera buttons focus key hubs.'
-            }
-        };
-        let currentLang = 'sv';
-        function setLang(lang) {
-            currentLang = lang;
-            const dict = strings[lang];
-            document.getElementById('title-text').textContent = dict.title;
-            document.getElementById('subtitle-text').textContent = dict.subtitle;
-            document.getElementById('nav-text').textContent = dict.nav;
-            document.getElementById('helpTitle').textContent = dict.helpTitle;
-            document.getElementById('helpBody').textContent = dict.helpBody;
-            updateLiveLabel();
-            document.documentElement.lang = lang;
-        }
-        document.getElementById('langToggle').addEventListener('click', () => {
-            setLang(currentLang === 'sv' ? 'en' : 'sv');
-        });
-
-        // High contrast toggle
-        document.getElementById('contrastToggle').addEventListener('click', () => {
-            document.documentElement.classList.toggle('high-contrast');
-        });
-
-        // Help modal
-        const helpModal = document.getElementById('helpModal');
-        document.getElementById('helpToggle').addEventListener('click', () => helpModal.style.display = 'flex');
-        document.getElementById('closeHelp').addEventListener('click', () => helpModal.style.display = 'none');
-        helpModal.addEventListener('click', e => { if (e.target === helpModal) helpModal.style.display = 'none'; });
-
         // Live data jitter (simulated)
         let liveInterval = null;
         function updateLiveLabel() {
             const btn = document.getElementById('liveToggle');
-            const dict = strings[currentLang];
-            btn.textContent = liveInterval ? dict.liveOn : dict.liveOff;
+            btn.textContent = liveInterval ? 'Simulated live signal: On' : 'Simulated live signal: Off';
             btn.setAttribute('aria-pressed', liveInterval ? 'true' : 'false');
         }
         document.getElementById('liveToggle').addEventListener('click', () => {
@@ -692,23 +568,20 @@
         buildLegend();
         updateGlobeData();
         wireFilters();
-        setLang('sv');
+        updateLiveLabel();
 
         window.addEventListener('resize', () => {
             world.width(globeElement.clientWidth);
             world.height(globeElement.clientHeight);
         });
 
-        // Onboarding open once
-        helpModal.style.display = 'flex';
-
-        globalThis.namakaGlobe = { world, layers, nodes: ecosystemNodes, arcs: signalArcs };
+        window.namakaGlobe = { world, layers, nodes: ecosystemNodes, arcs: signalArcs };
     </script>
     <noscript>
         <div class="modal" style="margin:2rem auto; max-width:720px;">
-            <h3>WebGL krävs</h3>
-            <p>Aktivera JavaScript och WebGL för att se globen. Alternativt, se en statisk demo:</p>
-            <a class="pill" href="preview.png" target="_blank" rel="noopener">Öppna statisk vy</a>
+            <h3>WebGL Required</h3>
+            <p>Enable JavaScript and WebGL to see the globe. Alternatively, see a static demo:</p>
+            <a class="pill" href="preview.png" target="_blank" rel="noopener">Open static view</a>
         </div>
     </noscript>
 </body>
