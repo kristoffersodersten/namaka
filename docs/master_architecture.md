@@ -105,8 +105,7 @@ Namaka is the intentional cognitive engine that interprets, mediates, and stabil
 In Namaka, **entities are not programs, workers, or “agents.”**
 
 > **Entities = Minds.**
-> 
-
+>
 Not:
 
 - “intelligent assistants”
