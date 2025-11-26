@@ -13,15 +13,53 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Namaka Market Signal Density Globe</title>
     <meta name="description" content="Interaktiv glob som visar Namakas signalflöden, intelligens, produkter, partners och kapital." />
-    <meta property="og:title" content="Namaka | Market Signal Density Globe" />
-    <meta property="og:description" content="Utforska hur Namakas ekosystem lever: signaler, partners, kapital och intelligens i realtid." />
+    <meta property="og:title" content="Namaka — The Digital Reef: Living Signal Network" />
+    <meta property="og:description" content="Experience the global AI × biological minds collaboration space, powering real-time market intelligence." />
+    <meta property="og:image" content="https://kristoffersodersten.github.io/namaka/docs/namaka_og_image.png" />
+    <meta property="og:url" content="https://kristoffersodersten.github.io/namaka/" />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://raw.githubusercontent.com/kristoffersodersten/namaka/main/docs/preview.png" />
-    <meta property="og:url" content="https://kristoffersodersten.github.io/namaka/docs/market_signal_density_globe.html" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Namaka — The Digital Reef: Living Signal Network" />
+    <meta name="twitter:description" content="Investor-ready, real-time global signal network." />
+    <meta name="twitter:image" content="https://kristoffersodersten.github.io/namaka/docs/namaka_og_image.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://unpkg.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600&display=swap" rel="stylesheet" />
+    <!-- Lightweight tracking queue so clicks can be replayed once analytics endpoint/GA is wired up -->
+    <script>
+        globalThis.namakaTracking = globalThis.namakaTracking || [];
+        globalThis.namakaTrack = function (eventName, payload = {}) {
+            globalThis.namakaTracking.push({
+                event: eventName,
+                payload,
+                ts: Date.now(),
+                path: globalThis.location ? globalThis.location.pathname : '/',
+                referrer: document.referrer || 'direct'
+            });
+        };
+
+        globalThis.addEventListener('load', () => {
+            namakaTrack('page_view', { page: 'market_signal_density_globe' });
+
+            const trackedEls = document.querySelectorAll('[data-track]');
+            for (const el of trackedEls) {
+                el.addEventListener('click', () => {
+                    namakaTrack(el.dataset.track, {
+                        label: el.dataset.trackLabel || el.textContent.trim()
+                    });
+                }, { passive: true });
+            }
+        });
+    </script>
+    <!-- Replace G-XXXXXXXXXX with the actual GA4 id or swap for Plausible/Simple Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+        globalThis.dataLayer = globalThis.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XXXXXXXXXX');
+    </script>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><circle cx='32' cy='32' r='30' fill='%23040714'/><path d='M12 34c4 9 13 15 22 15 12 0 21-9 21-21S46 7 34 7 13 16 13 28' stroke='%2322d3ee' stroke-width='4' fill='none'/></svg>" />
     <style>
         :root {
@@ -281,7 +319,7 @@
             <button class="pill" id="contrastToggle" aria-label="Aktivera högkontrastläge">Högkontrast</button>
             <button class="pill" id="liveToggle" aria-pressed="false">Simulerad live-signal: Av</button>
             <button class="pill" id="helpToggle" aria-label="Öppna hjälpfönster">Hjälp / ?</button>
-            <a class="pill" href="mailto:kristoffer.sodersten@gmail.com?subject=Signal%20Review" aria-label="Boka 20 minuter">Boka 20 min signal review</a>
+            <a class="pill" data-track="cta_signal_review" data-track-label="header" href="mailto:kristoffer.sodersten@gmail.com?subject=Signal%20Review%20%E2%80%94%20Namaka&body=Hej%20Kristoffer%2C%0A%0AJag%20vill%20g%C3%A4rna%20boka%2020%20min%20f%C3%B6r%20en%20Signal%20Review.%20H%C3%A4r%20%C3%A4r%20lite%20kontekst%3A%0A-%20Fond%2Fbolag%3A%20%5Bangiv%20namn%5D%0A-%20Fokus%3A%20%5Bvertikal%5D%0A-%20Vad%20jag%20vill%20se%3A%20%5Bkorta%20punkter%5D%0A%0ATack!" aria-label="Boka 20 minuter">Boka 20 min signal review</a>
             <a class="pill" href="../README.md" target="_blank" rel="noopener" aria-label="Ladda ned investor pack">Investor pack</a>
         </div>
     </header>
