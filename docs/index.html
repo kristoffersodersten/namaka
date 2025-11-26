@@ -2,16 +2,102 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Namaka Signal Globe</title>
-  <link rel="canonical" href="https://kristoffersodersten.github.io/namaka/docs/market_signal_density_globe.html" />
-  <meta name="robots" content="noindex" />
-  <script>
-    globalThis.location.replace('./market_signal_density_globe.html');
-  </script>
+  <title>Namaka: The Digital Reef</title>
+  <meta name="description" content="Interactive Demonstration of Namaka (The Digital Reef)" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #0A0A0A;
+      --fg: #FAFAFA;
+      --accent: #888888;
+      --grid: 8px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--fg);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.5;
+      padding: calc(var(--grid) * 5);
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    h1 { 
+      font-size: 24px; 
+      font-weight: 500;
+      letter-spacing: -0.5px;
+      margin-bottom: calc(var(--grid) * 3);
+      border-bottom: 1px solid var(--accent);
+      padding-bottom: calc(var(--grid) * 2);
+    }
+    .section {
+      margin-bottom: calc(var(--grid) * 4);
+    }
+    h2 {
+      font-size: 16px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--accent);
+      margin-bottom: calc(var(--grid) * 2);
+    }
+    .btn {
+      display: inline-block;
+      background: var(--bg);
+      color: var(--fg);
+      border: 1px solid var(--accent);
+      padding: calc(var(--grid) * 1.5) calc(var(--grid) * 3);
+      text-decoration: none;
+      margin-right: calc(var(--grid) * 2);
+      margin-bottom: calc(var(--grid) * 2);
+      font-size: 14px;
+      transition: background 0.12s ease-in-out;
+    }
+    .btn:hover {
+      background: #1A1A1A;
+    }
+    p {
+      margin: 0 0 calc(var(--grid) * 2) 0;
+      font-size: 14px;
+    }
+    .meta {
+      color: var(--accent);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: calc(var(--grid) * 3);
+      padding-top: calc(var(--grid) * 2);
+      border-top: 1px solid var(--accent);
+    }
+  </style>
 </head>
 <body>
-  <p>
-    Redirecting to the <a href="./market_signal_density_globe.html">Namaka Signal Globe</a>...
-  </p>
+  <div class="container">
+    <h1>NAMAKA: THE DIGITAL REEF</h1>
+    
+    <div class="section">
+      <h2>INVESTOR PITCH</h2>
+      <p>Experience the next-generation global signal network — where advanced AI and biological expertise converge to deliver real-time insights, market coverage, and investor-grade security.</p>
+      <a href="market_signal_density_globe.html" class="btn">VIEW INTERACTIVE GLOBE</a>
+      <a href="master_architecture.md" class="btn">MASTER ARCHITECTURE</a>
+    </div>
+    
+    <div class="section">
+      <h2>KEY METRICS</h2>
+      <p>• Global coverage 97% | Signal freshness 98.5% (<12s latency) | Partner uptime 99.9%</p>
+      <p>• $500M+ Market Signal Opportunity | Techstars Showcase</p>
+      <p>• Active pilots | ARR pipeline underway | NPS 82 | SOC2 in progress</p>
+    </div>
+    
+    <div class="section">
+      <h2>CONTACT</h2>
+      <p>Kristoffer Södersten<br>
+      <a href="mailto:kristoffer.sodersten@gmail.com" class="btn">EMAIL FOR SIGNAL REVIEW</a></p>
+    </div>
+    
+    <div class="meta">THE INTERFACE APPROACHES INVISIBILITY. THE DIGITAL REEF GROWS. THE WORK SPEAKS.</div>
+  </div>
 </body>
 </html>

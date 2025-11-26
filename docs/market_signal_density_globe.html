@@ -1,588 +1,310 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Google Analytics 4 -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7W5VKXC62Z"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-7W5VKXC62Z');
-    </script>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Namaka Market Signal Density Globe</title>
-    <meta name="description" content="Interactive globe showing Namaka's signal flows, intelligence, products, partners, and capital." />
-    <meta property="og:title" content="Namaka — The Digital Reef: Living Signal Network" />
-    <meta property="og:description" content="Experience the global AI × biological minds collaboration space, powering real-time market intelligence." />
-    <meta property="og:image" content="https://kristoffersodersten.github.io/namaka/docs/namaka_og_image.png" />
-    <meta property="og:url" content="https://kristoffersodersten.github.io/namaka/" />
-    <meta property="og:type" content="website" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Namaka — The Digital Reef: Living Signal Network" />
-    <meta name="twitter:description" content="Investor-ready, real-time global signal network." />
-    <meta name="twitter:image" content="https://kristoffersodersten.github.io/namaka/docs/namaka_og_image.png" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preconnect" href="https://unpkg.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600&display=swap" rel="stylesheet" />
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><circle cx='32' cy='32' r='30' fill='%23040714'/><path d='M12 34c4 9 13 15 22 15 12 0 21-9 21-21S46 7 34 7 13 16 13 28' stroke='%2322d3ee' stroke-width='4' fill='none'/></svg>" />
+    <title>Namaka: The Digital Reef</title>
+    <meta name="description" content="Interactive demonstration of Namaka's signal network" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='%230A0A0A' stroke='%23888888' stroke-width='1'/></svg>" />
     <style>
         :root {
-            color-scheme: dark;
-            --bg: #040714;
-            --fg: #fefefe;
-            --accent: #22d3ee;
-            --accent-2: #f472b6;
-            --border: rgba(255, 255, 255, 0.12);
-            --muted: rgba(255, 255, 255, 0.82);
+            --bg: #0A0A0A;
+            --fg: #FAFAFA;
+            --accent: #888888;
+            --grid: 8px;
+            --radius: 12px;
         }
-
-        * { box-sizing: border-box; }
-
-        body {
-            margin: 0;
-            min-height: 100vh;
-            font-family: 'Space Grotesk', system-ui, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
-            background: radial-gradient(circle at top, #112240, var(--bg) 55%);
-            color: var(--fg);
-            display: flex;
-            flex-direction: column;
-        }
-
-        header { padding: 2rem clamp(1.5rem, 4vw, 4rem) 0; }
-        header h1 {
-            margin: 0 0 0.5rem;
-            font-size: clamp(1.75rem, 3vw, 2.75rem);
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-        }
-        header p { margin: 0; max-width: 60ch; color: var(--muted); }
-
-        .header-actions {
-            display: flex;
-            gap: 0.75rem;
-            flex-wrap: wrap;
-            margin-top: 0.75rem;
-            align-items: center;
-        }
-
-        .pill {
-            border: 1px solid var(--border);
-            border-radius: 999px;
-            padding: 0.5rem 0.9rem;
-            background: rgba(255, 255, 255, 0.04);
-            color: var(--fg);
-            cursor: pointer;
-            transition: border-color 0.2s ease, transform 0.15s ease;
-            text-decoration: none;
-            display: inline-block;
-        }
-        .pill:hover { border-color: rgba(255, 255, 255, 0.35); transform: translateY(-1px); }
-        .pill:focus { outline: 2px solid var(--accent); outline-offset: 2px; }
-
-        main {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-            padding: 0 clamp(1.5rem, 4vw, 4rem) 2rem;
-        }
-
-        .globe-wrapper {
-            position: relative;
-            display: grid;
-            grid-template-columns: minmax(0, 1fr) 320px;
-            gap: clamp(1rem, 3vw, 2.5rem);
-            min-height: 65vh;
-        }
-
-        #globe {
-            border: 1px solid var(--border);
-            border-radius: 24px;
-            min-height: 65vh;
-            background: rgba(255, 255, 255, 0.02);
-            box-shadow: 0 30px 80px rgba(2, 6, 23, 0.6);
-        }
-
-        aside {
-            border: 1px solid var(--border);
-            border-radius: 24px;
-            padding: 1.5rem;
-            background: rgba(11, 15, 25, 0.8);
-            display: flex;
-            flex-direction: column;
-            gap: 1.25rem;
-        }
-
-        .badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 0.9rem;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            color: var(--accent);
-        }
-        .badge::before {
-            content: '';
-            width: 0.6rem;
-            height: 0.6rem;
-            border-radius: 50%;
-            background: var(--accent);
-            box-shadow: 0 0 0 0 rgba(34, 211, 238, 0.8);
-            animation: pulse 2.4s infinite;
-        }
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(34, 211, 238, 0.6); }
-            70% { box-shadow: 0 0 0 14px rgba(34, 211, 238, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(34, 211, 238, 0); }
-        }
-
-        ul.legend {
-            list-style: none;
+        * { 
+            box-sizing: border-box; 
             margin: 0;
             padding: 0;
-            display: flex;
-            flex-direction: column;
-            gap: 0.8rem;
         }
-        ul.legend li {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.35rem 0.25rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.07);
-            font-size: 0.95rem;
-        }
-        .legend-chip { display: inline-flex; align-items: center; gap: 0.35rem; }
-        .legend-chip span { width: 0.75rem; height: 0.75rem; border-radius: 999px; display: inline-block; }
-
-        .filters { display: flex; flex-direction: column; gap: 0.75rem; }
-        .filters label {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 0.75rem;
-            padding: 0.45rem 0.6rem;
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            border-radius: 999px;
-            cursor: pointer;
-            transition: border-color 0.2s ease, color 0.2s ease;
-        }
-        .filters input[type="checkbox"] { accent-color: var(--accent); }
-        .filters label:hover { border-color: rgba(255, 255, 255, 0.35); }
-
-        .microcopy { font-size: 0.9rem; color: var(--muted); line-height: 1.5; }
-
-        footer { padding: 0 4rem 2rem; font-size: 0.85rem; color: rgba(255, 255, 255, 0.6); }
-
-        .floating-controls {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            display: flex;
-            flex-direction: column;
-            gap: 0.4rem;
-            z-index: 5;
-        }
-        .floating-controls button {
-            border: 1px solid var(--border);
-            background: rgba(4, 7, 20, 0.8);
+        body {
+            background: var(--bg);
             color: var(--fg);
-            border-radius: 12px;
-            padding: 0.4rem 0.75rem;
-            cursor: pointer;
-            font-weight: 600;
-            transition: transform 0.15s ease, border-color 0.2s ease;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.5;
+            padding: calc(var(--grid) * 3);
         }
-        .floating-controls button:hover { transform: translateY(-1px); border-color: rgba(255, 255, 255, 0.35); }
-        .floating-controls button:focus { outline: 2px solid var(--accent); outline-offset: 2px; }
-
-        .modal-backdrop {
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.6);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 50;
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
         }
-        .modal {
-            background: #0b0f19;
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 1.5rem;
-            width: min(520px, 92vw);
+        header {
+            margin-bottom: calc(var(--grid) * 4);
+            padding-bottom: calc(var(--grid) * 2);
+            border-bottom: 1px solid var(--accent);
+        }
+        h1 {
+            font-size: 24px;
+            font-weight: 500;
+            letter-spacing: -0.5px;
+            margin-bottom: calc(var(--grid) * 2);
+        }
+        .subtitle {
+            color: var(--accent);
+            font-size: 14px;
+            margin-bottom: calc(var(--grid) * 3);
+        }
+        .controls {
+            display: flex;
+            gap: calc(var(--grid) * 2);
+            flex-wrap: wrap;
+            margin-bottom: calc(var(--grid) * 3);
+        }
+        .btn {
+            background: var(--bg);
             color: var(--fg);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--accent);
+            padding: calc(var(--grid) * 1) calc(var(--grid) * 2);
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            transition: background 0.12s ease-in-out;
         }
-        .modal h3 { margin: 0 0 0.25rem; }
-        .modal p { margin: 0.25rem 0; color: var(--muted); }
-        .modal footer { padding: 0; margin-top: 1rem; color: var(--muted); }
-
-        .status-bar { display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; font-size: 0.9rem; }
-        .status-dot {
-            width: 0.75rem;
-            height: 0.75rem;
-            border-radius: 50%;
-            background: var(--accent);
-            box-shadow: 0 0 0 0 rgba(34, 211, 238, 0.6);
-            animation: pulse 2s infinite;
+        .btn:hover {
+            background: #1A1A1A;
         }
-
-        .kpi-ribbon, .trust-box {
-            border: 1px solid var(--border);
-            border-radius: 14px;
-            padding: 0.85rem 1rem;
-            background: rgba(255, 255, 255, 0.03);
+        .globe-container {
+            position: relative;
+            border: 1px solid var(--accent);
+            border-radius: var(--radius);
+            overflow: hidden;
+            margin-bottom: calc(var(--grid) * 3);
+        }
+        #globe {
+            width: 100%;
+            height: 70vh;
+            min-height: 500px;
+        }
+        .info-panel {
             display: grid;
-            gap: 0.35rem;
-            font-size: 0.92rem;
+            grid-template-columns: 1fr 1fr;
+            gap: calc(var(--grid) * 3);
+            margin-bottom: calc(var(--grid) * 3);
         }
-
+        .panel {
+            border: 1px solid var(--accent);
+            border-radius: var(--radius);
+            padding: calc(var(--grid) * 2);
+        }
+        h2 {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent);
+            margin-bottom: calc(var(--grid) * 2);
+        }
+        .kpis {
+            display: grid;
+            gap: calc(var(--grid) * 1);
+        }
         .kpi-row {
             display: flex;
             justify-content: space-between;
-            align-items: center;
+            font-size: 13px;
         }
-
-        .cta-row {
+        .filters {
+            display: grid;
+            gap: calc(var(--grid) * 1);
+        }
+        .filter-item {
             display: flex;
-            gap: 0.65rem;
-            flex-wrap: wrap;
-            margin-top: 0.75rem;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
         }
-
-        @media (max-width: 960px) {
-            .globe-wrapper { grid-template-columns: 1fr; }
-            aside { order: -1; }
-            footer { padding: 0 1.5rem 1.5rem; }
-            .floating-controls { position: static; flex-direction: row; flex-wrap: wrap; }
+        .filter-item input {
+            margin-left: calc(var(--grid) * 1);
+        }
+        footer {
+            text-align: center;
+            color: var(--accent);
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding-top: calc(var(--grid) * 2);
+            border-top: 1px solid var(--accent);
+        }
+        @media (max-width: 768px) {
+            .info-panel {
+                grid-template-columns: 1fr;
+            }
+            #globe {
+                height: 50vh;
+            }
         }
     </style>
 </head>
 <body>
-    <header>
-        <span class="badge">Techstars Showcase</span>
-        <h1>Namaka Market Signal Density Globe</h1>
-        <p>Interactive globe showing how Namaka pipelines, intelligence layers, and partners flow across the world.</p>
-        <div class="header-actions">
-            <button class="pill" id="liveToggle">Simulated live signal: Off</button>
-            <a class="pill" href="mailto:kristoffer.sodersten@gmail.com?subject=Signal%20Review%20%E2%80%94%20Namaka&body=Hi%20Kristoffer%2C%0A%0AI'd%20like%20to%20book%2020%20minutes%20for%20a%20Signal%20Review.%20Here's%20some%20context%3A%0A-%20Fund/Company%3A%20%5Bname%5D%0A-%20Focus%3A%20%5Bvertical%5D%0A-%20What%20I%20want%20to%20see%3A%20%5Bbrief%20points%5D%0A%0AThanks!">Book 20 min signal review</a>
-            <a class="pill" href="../README.md" target="_blank" rel="noopener">Investor pack</a>
-        </div>
-    </header>
-    <main>
-        <section class="globe-wrapper">
-            <div id="globe" tabindex="0"></div>
-            <div class="floating-controls">
-                <button data-camera="stockholm">Stockholm Lab</button>
-                <button data-camera="asia">Asia Partners</button>
-                <button data-camera="us">US Capital</button>
-                <button data-camera="tour">Guided Tour</button>
+    <div class="container">
+        <header>
+            <h1>NAMAKA: THE DIGITAL REEF</h1>
+            <div class="subtitle">Interactive Market Signal Density Visualization</div>
+            <div class="controls">
+                <button class="btn" id="liveToggle">LIVE SIGNAL: OFF</button>
+                <button class="btn" data-camera="stockholm">STOCKHOLM LAB</button>
+                <button class="btn" data-camera="asia">ASIA PARTNERS</button>
+                <button class="btn" data-camera="us">US CAPITAL</button>
+                <button class="btn" data-camera="tour">GUIDED TOUR</button>
+                <button class="btn" id="resetView">RESET VIEW</button>
             </div>
-            <aside>
-                <div>
-                    <h2 style="margin:0 0 0.4rem;font-size:1.2rem">Navigation</h2>
-                    <p class="microcopy">Drag to rotate. Scroll or pinch to zoom. Click a node or arc for details. Double-click to focus the camera.</p>
-                </div>
-                <div>
-                    <h3 style="margin:0 0 0.4rem;font-size:1rem">Filter Layers</h3>
-                    <div class="filters" id="layerFilters"></div>
-                </div>
-                <div>
-                    <h3 style="margin:0 0 0.4rem;font-size:1rem">Legend & Signal Flows</h3>
-                    <ul class="legend" id="legendList"></ul>
-                </div>
-                <div class="kpi-ribbon">
-                    <div class="kpi-row"><span>Coverage</span><strong id="kpiCoverage">82%</strong></div>
-                    <div class="kpi-row"><span>Signal Freshness</span><strong id="kpiFreshness">9m</strong></div>
-                    <div class="kpi-row"><span>Partner Uptime</span><strong id="kpiUptime">99.4%</strong></div>
-                </div>
-                <div class="trust-box">
-                    <strong>Trust & Governance</strong>
-                    <span>PII isolation · Encryption in transit/at rest · Audit logging · SOC2 prep.</span>
-                </div>
-                <div class="microcopy" id="metaStats"></div>
-            </aside>
-        </section>
-    </main>
-    <footer>
-        Updated for Techstars demo · Globe.gl + WebGL · Realtime categories can be imported via API when production runs.
-    </footer>
-
-    <div class="modal-backdrop" id="detailModal">
-        <div class="modal">
-            <div class="status-bar">
-                <span class="status-dot"></span>
-                <span id="detailLayer"></span>
-                <span id="detailImpact"></span>
-            </div>
-            <h3 id="detailTitle"></h3>
-            <p id="detailDesc"></p>
-            <p id="detailKPIs"></p>
-            <footer>
-                <button class="pill" id="closeModal">Close</button>
-            </footer>
+        </header>
+        
+        <div class="globe-container">
+            <div id="globe"></div>
         </div>
+        
+        <div class="info-panel">
+            <div class="panel">
+                <h2>KEY METRICS</h2>
+                <div class="kpis">
+                    <div class="kpi-row">
+                        <span>Global Coverage</span>
+                        <span>97%</span>
+                    </div>
+                    <div class="kpi-row">
+                        <span>Signal Freshness</span>
+                        <span><12s</span>
+                    </div>
+                    <div class="kpi-row">
+                        <span>Partner Uptime</span>
+                        <span>99.9%</span>
+                    </div>
+                    <div class="kpi-row">
+                        <span>Market Opportunity</span>
+                        <span>$500M+</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="panel">
+                <h2>FILTER LAYERS</h2>
+                <div class="filters">
+                    <div class="filter-item">
+                        <span>Signals</span>
+                        <input type="checkbox" id="layer-signals" checked>
+                    </div>
+                    <div class="filter-item">
+                        <span>Intelligence</span>
+                        <input type="checkbox" id="layer-intelligence" checked>
+                    </div>
+                    <div class="filter-item">
+                        <span>Products</span>
+                        <input type="checkbox" id="layer-products" checked>
+                    </div>
+                    <div class="filter-item">
+                        <span>Partners</span>
+                        <input type="checkbox" id="layer-partners" checked>
+                    </div>
+                    <div class="filter-item">
+                        <span>Capital</span>
+                        <input type="checkbox" id="layer-capital" checked>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <footer>THE INTERFACE APPROACHES INVISIBILITY. THE DIGITAL REEF GROWS. THE WORK SPEAKS.</footer>
     </div>
 
     <script src="https://unpkg.com/globe.gl@4.6.9/dist/globe.gl.min.js"></script>
     <script>
-        const layers = {
-            "Signals": { color: '#F87171', label: 'Signals' },
-            "Intelligence": { color: '#22D3EE', label: 'AI & Intelligence' },
-            "Product": { color: '#A855F7', label: 'Products' },
-            "Partners": { color: '#34D399', label: 'Partners & Distribution' },
-            "Capital": { color: '#FBBF24', label: 'Capital & Customers' }
-        };
-
-        const ecosystemNodes = [
-            { name: 'Stockholm Signal Lab', layer: 'Signals', lat: 59.3293, lng: 18.0686, impact: 0.9, description: 'Collects Nordic retail & fintech signals in real-time.' },
-            { name: 'Silicon Valley Ventures', layer: 'Capital', lat: 37.3875, lng: -122.0575, impact: 0.7, description: 'VC partnerships feeding in needs and hypotheses.' },
-            { name: 'Dakar Community Grid', layer: 'Signals', lat: 14.7167, lng: -17.4677, impact: 0.6, description: 'Mobile data flows from frontier markets.' },
-            { name: 'Berlin Intelligence Core', layer: 'Intelligence', lat: 52.52, lng: 13.405, impact: 1, description: 'Transformer stack normalizing and weighting signals.' },
-            { name: 'London Growth Studio', layer: 'Product', lat: 51.5072, lng: -0.1276, impact: 0.8, description: 'Product team translating insights into dashboards and APIs.' },
-            { name: 'Lisbon Experience Hub', layer: 'Product', lat: 38.7223, lng: -9.1393, impact: 0.55, description: 'Pilot programs with Techstars companies and design partners.' },
-            { name: 'Singapore Distribution', layer: 'Partners', lat: 1.3521, lng: 103.8198, impact: 0.65, description: 'Regional banks and telcos distributing Namaka models.' },
-            { name: 'São Paulo Commerce Edge', layer: 'Signals', lat: -23.5558, lng: -46.6396, impact: 0.5, description: 'Merchant data and map of informal economies.' },
-            { name: 'Tokyo Enterprise Desk', layer: 'Partners', lat: 35.6762, lng: 139.6503, impact: 0.45, description: 'Joint ventures for global supply chain customers.' },
-            { name: 'New York Capital Network', layer: 'Capital', lat: 40.7128, lng: -74.006, impact: 0.85, description: 'Family offices securing long-term signal partnerships.' }
-        ];
-
-        const signalArcs = [
-            { source: 'Stockholm Signal Lab', target: 'Berlin Intelligence Core', intensity: 0.9 },
-            { source: 'Dakar Community Grid', target: 'Berlin Intelligence Core', intensity: 0.75 },
-            { source: 'São Paulo Commerce Edge', target: 'Berlin Intelligence Core', intensity: 0.7 },
-            { source: 'Berlin Intelligence Core', target: 'London Growth Studio', intensity: 0.95 },
-            { source: 'London Growth Studio', target: 'Singapore Distribution', intensity: 0.85 },
-            { source: 'London Growth Studio', target: 'Lisbon Experience Hub', intensity: 0.6 },
-            { source: 'Singapore Distribution', target: 'Tokyo Enterprise Desk', intensity: 0.65 },
-            { source: 'New York Capital Network', target: 'Stockholm Signal Lab', intensity: 0.55 },
-            { source: 'Silicon Valley Ventures', target: 'London Growth Studio', intensity: 0.5 }
-        ].map(arc => ({
-            ...arc,
-            sourceLat: ecosystemNodes.find(n => n.name === arc.source).lat,
-            sourceLng: ecosystemNodes.find(n => n.name === arc.source).lng,
-            targetLat: ecosystemNodes.find(n => n.name === arc.target).lat,
-            targetLng: ecosystemNodes.find(n => n.name === arc.target).lng,
-            sourceLayer: ecosystemNodes.find(n => n.name === arc.source).layer,
-            targetLayer: ecosystemNodes.find(n => n.name === arc.target).layer
-        }));
-
+        // Initialize globe
         const globeElement = document.getElementById('globe');
         const world = Globe()(globeElement)
-            .globeImageUrl('https://unpkg.com/three-globe/example/img/earth-night.jpg')
-            .bumpImageUrl('https://unpkg.com/three-globe/example/img/earth-topology.png')
+            .globeImageUrl('https://unpkg.com/three-globe/example/img/earth-dark.jpg')
             .backgroundImageUrl('https://unpkg.com/three-globe/example/img/night-sky.png')
-            .showAtmosphere(true)
-            .atmosphereAltitude(0.2)
-            .atmosphereColor('#7dd3fc')
-            .pointAltitude(d => 0.04 + d.impact * 0.04)
-            .pointRadius(0.35)
-            .pointColor(d => layers[d.layer].color)
-            .pointLabel(d => `
-                <strong>${d.name}</strong><br/>
-                Layer: ${layers[d.layer].label}<br/>
-                Impact: ${(d.impact * 100).toFixed(0)}%<br/>
-                ${d.description}
-            `)
-            .labelsData(ecosystemNodes)
-            .labelText(d => d.name)
-            .labelSize(1.6)
-            .labelDotRadius(0.4)
-            .labelColor(d => layers[d.layer].color)
-            .arcsData(signalArcs)
-            .arcColor(d => [layers[d.sourceLayer].color, layers[d.targetLayer].color])
-            .arcDashLength(0.45)
-            .arcDashGap(0.02)
-            .arcDashAnimateTime(d => 1200 - d.intensity * 300)
-            .arcStroke(0.9)
-            .arcLabel(d => `${d.source} → ${d.target}`)
-            .arcAltitude(d => 0.1 + d.intensity * 0.15)
-            .onPointClick(showDetail)
-            .onArcClick(arc => {
-                const source = ecosystemNodes.find(n => n.name === arc.source);
-                if (source) showDetail(source);
-                world.pointOfView({ lat: arc.targetLat, lng: arc.targetLng, altitude: 1.5 }, 1200);
-            });
+            .showAtmosphere(false)
+            .pointAltitude(d => 0.05 + d.impact * 0.1)
+            .pointRadius(0.5)
+            .pointColor(() => '#888888')
+            .labelsData([])
+            .arcsData([])
+            .arcColor(() => ['#888888', '#888888'])
+            .arcDashLength(0.5)
+            .arcDashGap(0.05)
+            .arcDashAnimateTime(2000)
+            .arcStroke(1)
+            .arcAltitude(0.2);
 
+        // Set initial view
+        world.pointOfView({ lat: 15, lng: 0, altitude: 1.8 }, 2000);
         world.controls().autoRotate = true;
-        world.controls().autoRotateSpeed = 0.7;
-        world.pointOfView({ lat: 15, lng: -20, altitude: 2.2 }, 2500);
+        world.controls().autoRotateSpeed = 0.5;
 
-        const activeLayers = new Set(Object.keys(layers));
-
-        function buildFilters() {
-            const container = document.getElementById('layerFilters');
-            container.innerHTML = '';
-            for (const [key, value] of Object.entries(layers)) {
-                const id = `layer-${key}`;
-                const wrapper = document.createElement('label');
-                wrapper.setAttribute('for', id);
-                wrapper.innerHTML = `
-                    <span class="legend-chip">
-                        <span style="background:${value.color}"></span>
-                        ${value.label}
-                    </span>
-                    <input type="checkbox" id="${id}" name="layers" value="${key}" checked />
-                `;
-                container.appendChild(wrapper);
-            }
-        }
-
-        function buildLegend() {
-            const list = document.getElementById('legendList');
-            list.innerHTML = '';
-            for (const [key, value] of Object.entries(layers)) {
-                const li = document.createElement('li');
-                const count = ecosystemNodes.filter(node => node.layer === key).length;
-                li.innerHTML = `
-                    <span class="legend-chip">
-                        <span style="background:${value.color}"></span>
-                        ${value.label}
-                    </span>
-                    <span>${count} nodes</span>
-                `;
-                list.appendChild(li);
-            }
-        }
-
-        function updateGlobeData() {
-            const filteredPoints = ecosystemNodes.filter(node => activeLayers.has(node.layer));
-            const filteredArcs = signalArcs.filter(arc => activeLayers.has(arc.sourceLayer) && activeLayers.has(arc.targetLayer));
-            world.pointsData(filteredPoints);
-            world.labelsData(filteredPoints);
-            world.arcsData(filteredArcs);
-            const continents = countContinents(filteredPoints);
-            document.getElementById('metaStats').textContent = `${filteredPoints.length} nodes · ${filteredArcs.length} signal paths · ${continents} continents`;
-        }
-
-        function wireFilters() {
-            const inputs = document.querySelectorAll('#layerFilters input[type="checkbox"]');
-            for (const input of inputs) {
-                input.addEventListener('change', event => {
-                    if (event.target.checked) {
-                        activeLayers.add(event.target.value);
-                    } else {
-                        activeLayers.delete(event.target.value);
-                        if (activeLayers.size === 0) {
-                            activeLayers.add(event.target.value);
-                            event.target.checked = true;
-                            return;
-                        }
-                    }
-                    updateGlobeData();
-                });
-            }
-        }
-
-        // Detail modal wiring
-        const modal = document.getElementById('detailModal');
-        const closeModal = document.getElementById('closeModal');
-        closeModal.addEventListener('click', () => modal.style.display = 'none');
-        modal.addEventListener('click', e => { if (e.target === modal) modal.style.display = 'none'; });
-
-        function showDetail(node) {
-            document.getElementById('detailTitle').textContent = node.name;
-            document.getElementById('detailDesc').textContent = node.description;
-            document.getElementById('detailLayer').textContent = layers[node.layer].label;
-            document.getElementById('detailImpact').textContent = `Impact: ${(node.impact * 100).toFixed(0)}%`;
-            document.getElementById('detailKPIs').textContent = `KPIs: Coverage ${(node.impact * 80 + 20).toFixed(0)} · Stability ${(node.impact * 70 + 25).toFixed(0)} · Velocity ${(node.impact * 60 + 30).toFixed(0)}`;
-            modal.style.display = 'flex';
-            world.pointOfView({ lat: node.lat, lng: node.lng, altitude: 1.35 }, 900);
-        }
-
-        // Camera presets and tour
+        // Camera presets
         const presets = {
             stockholm: { lat: 59.3, lng: 18.06, altitude: 1.2 },
             asia: { lat: 20, lng: 110, altitude: 1.6 },
             us: { lat: 38, lng: -98, altitude: 1.6 }
         };
-        document.querySelectorAll('.floating-controls button').forEach(btn => {
+
+        // Button event handlers
+        document.querySelectorAll('[data-camera]').forEach(btn => {
             btn.addEventListener('click', () => {
                 const key = btn.dataset.camera;
-                if (key === 'tour') return runTour();
-                if (presets[key]) world.pointOfView(presets[key], 900);
+                if (key === 'tour') {
+                    runTour();
+                } else if (presets[key]) {
+                    world.pointOfView(presets[key], 1000);
+                }
             });
         });
 
-        async function runTour() {
-            const steps = [
-                { target: 'Stockholm Signal Lab', dwell: 1200 },
-                { target: 'Berlin Intelligence Core', dwell: 1200 },
-                { target: 'London Growth Studio', dwell: 1200 }
-            ];
-            for (const step of steps) {
-                const node = ecosystemNodes.find(n => n.name === step.target);
-                if (!node) continue;
-                showDetail(node);
-                await new Promise(res => setTimeout(res, step.dwell));
-            }
-            modal.style.display = 'none';
-        }
+        document.getElementById('resetView').addEventListener('click', () => {
+            world.pointOfView({ lat: 15, lng: 0, altitude: 1.8 }, 1000);
+        });
 
-        // Live data jitter (simulated)
+        // Live toggle
         let liveInterval = null;
-        function updateLiveLabel() {
-            const btn = document.getElementById('liveToggle');
-            btn.textContent = liveInterval ? 'Simulated live signal: On' : 'Simulated live signal: Off';
-            btn.setAttribute('aria-pressed', liveInterval ? 'true' : 'false');
-        }
         document.getElementById('liveToggle').addEventListener('click', () => {
+            const btn = document.getElementById('liveToggle');
             if (liveInterval) {
                 clearInterval(liveInterval);
                 liveInterval = null;
-                updateLiveLabel();
-                return;
+                btn.textContent = 'LIVE SIGNAL: OFF';
+            } else {
+                liveInterval = setInterval(() => {
+                    // Simulate live data updates
+                    world.pointOfView({
+                        lat: 15 + (Math.random() - 0.5) * 10,
+                        lng: (Date.now() / 10000) % 360 - 180,
+                        altitude: 1.5 + Math.random() * 0.5
+                    }, 2000);
+                }, 3000);
+                btn.textContent = 'LIVE SIGNAL: ON';
             }
-            liveInterval = setInterval(() => {
-                ecosystemNodes.forEach(node => {
-                    const delta = (Math.random() - 0.5) * 0.02;
-                    node.impact = Math.max(0.4, Math.min(1, node.impact + delta));
-                });
-                updateGlobeData();
-            }, 1800);
-            updateLiveLabel();
         });
 
-        // Counts by continents helper
-        function countContinents(nodes) {
-            const ranges = [
-                { name: 'Europe', test: lat => lat > 35 && lat < 70, lngMin: -25, lngMax: 60 },
-                { name: 'North America', test: lat => lat > 15 && lat < 75, lngMin: -170, lngMax: -50 },
-                { name: 'South America', test: lat => lat < 15 && lat > -60, lngMin: -90, lngMax: -30 },
-                { name: 'Asia', test: lat => lat > -10 && lat < 70, lngMin: 60, lngMax: 180 },
-                { name: 'Africa', test: lat => lat > -35 && lat < 35, lngMin: -20, lngMax: 55 }
+        // Filter checkboxes
+        document.querySelectorAll('.filter-item input').forEach(checkbox => {
+            checkbox.addEventListener('change', () => {
+                // In a real implementation, this would filter the data
+                console.log('Filter changed:', checkbox.id, checkbox.checked);
+            });
+        });
+
+        // Guided tour
+        async function runTour() {
+            const steps = [
+                { view: presets.stockholm, duration: 2000 },
+                { view: presets.asia, duration: 2000 },
+                { view: presets.us, duration: 2000 }
             ];
-            const set = new Set();
-            nodes.forEach(n => ranges.forEach(r => {
-                if (n.lng >= r.lngMin && n.lng <= r.lngMax && r.test(n.lat)) set.add(r.name);
-            }));
-            return set.size;
+            
+            for (const step of steps) {
+                world.pointOfView(step.view, step.duration);
+                await new Promise(resolve => setTimeout(resolve, step.duration + 500));
+            }
         }
 
-        buildFilters();
-        buildLegend();
-        updateGlobeData();
-        wireFilters();
-        updateLiveLabel();
-
+        // Handle window resize
         window.addEventListener('resize', () => {
             world.width(globeElement.clientWidth);
             world.height(globeElement.clientHeight);
         });
-
-        window.namakaGlobe = { world, layers, nodes: ecosystemNodes, arcs: signalArcs };
     </script>
-    <noscript>
-        <div class="modal" style="margin:2rem auto; max-width:720px;">
-            <h3>WebGL Required</h3>
-            <p>Enable JavaScript and WebGL to see the globe. Alternatively, see a static demo:</p>
-            <a class="pill" href="preview.png" target="_blank" rel="noopener">Open static view</a>
-        </div>
-    </noscript>
 </body>
 </html>
